@@ -1,0 +1,9 @@
+# bazel symbolic links
+bazel-bin
+bazel-mlir_start
+bazel-out
+bazel-testlogs
+
+
+*.lock
+llvm.sh
