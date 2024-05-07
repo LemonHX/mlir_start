@@ -8,19 +8,27 @@ sudo ./llvm.sh 17
 
 ## installing bazel
 
-install bazelisk
+install bazel tools
 
-```
-wget https://github.com/bazelbuild/bazelisk/releases your bazelisk
-wget https://github.com/bazelbuild/buildtools/releases your buildifier
-mv to /usr/bin/bazelisk
-mv to /usr/bin/buildifier
-```
+- https://github.com/bazelbuild/bazelisk/releases 
+- https://github.com/bazelbuild/buildtools/releases
+
+download and install bazelisk and buildtools
+mv it to `/usr/bin/bazel` and `/usr/bin/buildifier`
+
 ##  install Renovate for automate dependency updates
 
-## install clangd vscode extension
+TODO
 
-## get clangd running`
+## install vscode extension
+
+- bazel
+- clangd
+- codelldb
+- python
+
+## get clangd running
+
 ```
 bazel run @hedron_compile_commands//:refresh_all
 ```
