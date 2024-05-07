@@ -1,0 +1,17 @@
+{
+	"version": "0.2.0",
+	"configurations": [
+		{
+			"name": "//example/cpp-effects:Demo",
+			"type": "lldb",
+			"request": "launch",
+			"program": "bazel-bin/example/cpp-effects/Demo",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "build //example/cpp-effects:Demo",
+            "sourceMap": {
+                "/proc/self/cwd": "${workspaceFolder}"
+            }
+		}
+  ]
+}

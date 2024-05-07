@@ -1,0 +1,21 @@
+{
+    "version": "2.0.0",
+	"tasks": [
+		{
+			"label": "bazel run @hedron_compile_commands//:refresh_all",
+			"command": "bazel",
+			"args": ["run", "@hedron_compile_commands//:refresh_all"],
+			"runOptions": {
+				"runOn": "folderOpen"
+			}
+		},
+
+
+		// DEBUG
+		{
+			"label": "build //example/cpp-effects:Demo",
+			"command": "bazel",
+			"args": ["build", "-c" , "dbg", "//example/cpp-effects:Demo"],
+		}
+    ]
+}
