@@ -7,6 +7,10 @@
 #ifndef CPP_EFFECTS_CPP_EFFECTS_H
 #define CPP_EFFECTS_CPP_EFFECTS_H
 
+#define defeffect(NAME, ...) struct NAME : cpp_effects::command<__VA_ARGS__>
+#define defhandler(NAME, ANSWER, BODY, ...)                                    \
+  struct NAME : public eff::handler<ANSWER, BODY, __VA_ARGS__>
+
 // Use Boost with support for Valgrind
 /*
 #ifndef BOOST_USE_VALGRIND
@@ -693,7 +697,7 @@ public:
   using answer_type = Answer;
   using body_type = void;
   virtual void debug_print() const override {
-    fmt::println("{}:{}[{}]", cpp_effects_internals::metaframe::label,
+    fmt::println("{}:{} [{}]", cpp_effects_internals::metaframe::label,
                  typeid(*this).name(), typeid(Cmds).name()...);
   }
 

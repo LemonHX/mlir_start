@@ -9,9 +9,9 @@
 			"args": [],
 			"cwd": "${workspaceFolder}",
 			"preLaunchTask": "build //example/cpp-effects:Demo",
-            "sourceMap": {
-                "/proc/self/cwd": "${workspaceFolder}"
-            }
+			"sourceMap": {
+				"/proc/self/cwd": "${workspaceFolder}"
+			}
 		}
-  ]
+	]
 }

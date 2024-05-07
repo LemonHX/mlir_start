@@ -1,26 +1,29 @@
 #include "lib/cpp-effects/cpp-effects.hh"
-#include <iostream>
-#include <ostream>
-
 
 namespace eff = cpp_effects;
-template <typename S> struct Put : eff::command<> {
+
+template <typename S> defeffect(Put) {
   S newState;
-};
-template <typename S> struct Get : eff::command<S> {};
-template <typename S> struct Print : eff::command<S> {
-  std::string message;
+  static void put(S s) { eff::invoke_command(Put<S>{{}, s}); }
 };
 
-template <typename S> void put(S s) { eff::invoke_command(Put<S>{{}, s}); }
-template <typename S> S get() { return eff::invoke_command(Get<S>{}); }
-template <typename S> void print(std::string message) {
-  eff::invoke_command(Print<S>{{}, message});
+template <typename S> defeffect(Print) {
+  std::string message;
+
+  void __print() { fmt::println("{}", message); }
+  static void print(std::string message) {
+    eff::invoke_command(Print<S>{{}, message});
+  }
+};
+
+template <typename S>
+defeffect(Get, S){static S get(){return eff::invoke_command(Get<S>{});
 }
+}
+;
 
 template <typename Answer, typename S>
-class Stateful : public eff::handler<Answer, Answer, Put<S>, Get<S>, Print<S>> {
-public:
+defhandler(Stateful, Answer, Answer, Put<S>, Get<S>, Print<S>) {
   Stateful(S initialState) : state(initialState) {}
 
 private:
@@ -32,20 +35,23 @@ private:
   Answer handle_command(Get<S>, eff::resumption<Answer(S)> r) override {
     return std::move(r).tail_resume(state);
   }
-  Answer handle_command(Print<S> p, eff::resumption<Answer(S)> r) override {
-    std::cout << p.message << std::endl;
-    return std::move(r).tail_resume(0);
+  Answer handle_command(Print<S> p, eff::resumption<Answer()> r) override {
+    p.__print();
+    return std::move(r).tail_resume();
   }
   Answer handle_return(Answer a) override { return a; }
 };
 
 int inc() {
-  auto i = get<int>();
-  print<int>("Incrementing " + std::to_string(i) + " to " + std::to_string(i + 1) + "...");
-  put(i + 1);
-  return get<int>();
+  auto i = Get<int>::get();
+  auto message = fmt::format("Incrementing {} to {}...", i, i + 1);
+  Print<int>::print(message);
+  Put<int>::put(i + 1);
+  Print<int>::print("Incremented!");
+  return Get<int>::get();
 }
 
 int main() {
-  std::cout << eff::handle<Stateful<int, int>>(inc, 100) << std::endl; // Output: 101
+  auto res = eff::handle<Stateful<int, int>>(inc, 100);
+  fmt::println("res: {}", res);
 }
