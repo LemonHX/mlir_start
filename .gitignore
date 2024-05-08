@@ -3,7 +3,8 @@ bazel-bin
 bazel-mlir_start
 bazel-out
 bazel-testlogs
+external
 
-
+temp/
 *.lock
 llvm.sh

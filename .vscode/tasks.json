@@ -14,6 +14,16 @@
 		},
 		// DEBUG
 		{
+			"label": "build //example/lexy:Demo",
+			"command": "bazel",
+			"args": [
+				"build",
+				"-c",
+				"dbg",
+				"//example/lexy:Demo"
+			],
+		},
+		{
 			"label": "build //example/cpp-effects:Demo",
 			"command": "bazel",
 			"args": [
@@ -22,6 +32,17 @@
 				"dbg",
 				"//example/cpp-effects:Demo"
 			],
+		},
+		// Tests
+		{
+			"label": "bazel test -c fastbuild //...",
+			"command": "bazel",
+			"args": [
+				"test",
+				"-c",
+				"fastbuild",
+				"//..."
+			]
 		}
 	]
 }

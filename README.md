@@ -27,8 +27,16 @@ TODO
 - codelldb
 - python
 
+
+
+## python set up
+
+pip install lit
+
+
 ## get clangd running
 
 ```
 bazel run @hedron_compile_commands//:refresh_all
 ```
+

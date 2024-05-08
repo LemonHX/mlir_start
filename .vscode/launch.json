@@ -2,6 +2,18 @@
 	"version": "0.2.0",
 	"configurations": [
 		{
+			"name": "//example/lexy:Demo",
+			"type": "lldb",
+			"request": "launch",
+			"program": "bazel-bin/example/lexy/Demo",
+			"args": [],
+			"cwd": "${workspaceFolder}",
+			"preLaunchTask": "build //example/lexy:Demo",
+			"sourceMap": {
+				"/proc/self/cwd": "${workspaceFolder}"
+			}
+		},
+		{
 			"name": "//example/cpp-effects:Demo",
 			"type": "lldb",
 			"request": "launch",
